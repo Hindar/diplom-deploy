@@ -1,0 +1,9 @@
+# ----------------------------
+# init
+deploy_stage: "{{ inventory_file | regex_replace('^(.*)\\.([^.]+)(\\.txt)$','\\2') }}"
+
+# ----------------------------
+app0_github_repo: Hindar/diplom-app.git
+
+app0_db_user: app0_user
+app0_db_name: app0_db

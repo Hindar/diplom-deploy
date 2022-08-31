@@ -1,0 +1,8 @@
+---
+- name: SF ansible tasks - setup k8s logging and monitoring, db, storage pool etc.
+  hosts: 
+    - srvs
+    - masters
+  become: true
+  roles:
+    - helm_charts

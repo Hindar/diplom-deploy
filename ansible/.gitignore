@@ -1,0 +1,32 @@
+# .terraform directories
+**/.terraform/*
+
+.terraform.lock.hcl
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# Crash log files
+crash.log
+crash.*.log
+
+*.tfvars
+*.tfplan
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+
+# Ansible
+*.retry
+.vault_pass
+
+# Kubespray - local git clone
+ansible/kubespray
+
+# tmp dir
+.tmp
+k8s

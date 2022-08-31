@@ -1,0 +1,64 @@
+[all]
+localhost ansible_host=127.0.0.1
+srv0e ansible_host=51.250.127.54
+srv0l ansible_host=192.168.10.15
+master0 ansible_host=192.168.10.16  etcd_member_name=etcd0
+worker0 ansible_host=192.168.10.12
+
+[all:vars]
+# ssh connect params
+ansible_ssh_user="user0"
+ansible_ssh_common_args="-F ansible-1-deploy-ssh.config"
+# tf/os params
+var_priv_subnet="192.168.10.0/24"
+var_priv_proxy_addr="srv0l.srv.local"
+var_priv_dns="192.168.10.2"
+http_proxy="http://srv0l.srv.local:8888"
+https_proxy="http://srv0l.srv.local:8888"
+# k8s
+var_srv="srv0l"
+var_k8s_cluster_master="master0"
+# app
+app_inner_port="31001"
+app_ext_url="http://62.84.127.38"
+prom_port="31501"
+ingress_port="32001"
+
+[srve]
+srv0e
+
+[srvl]
+srv0l
+
+[srv:children]
+srve
+
+[srvs]
+srv0l
+
+[masters]
+master0
+
+[workers]
+worker0
+
+[ansibled:children]
+srvl
+masters
+workers
+
+[kube_control_plane:children]
+masters
+
+[etcd:children]
+masters
+
+[kube_node:children]
+workers
+
+[calico_rr]
+
+[k8s_cluster:children]
+kube_control_plane
+kube_node
+calico_rr
